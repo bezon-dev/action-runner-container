@@ -97,7 +97,7 @@ RUN set -e; \
   install -m 755 kubeseal /usr/local/bin/kubeseal; \
   rm -rf kubeseal-${KUBESEAL_VERSION}-${TARGETOS}-${TARGETARCH}.tar.gz kubeseal
 
-
+COPY registries.conf /etc/containers/registries.conf
 
 # RUN mkdir -p /pyenv && chown coder:coder /pyenv
 
