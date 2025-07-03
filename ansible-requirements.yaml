@@ -1,0 +1,10 @@
+---
+collections:
+  # ##versions: https://github.com/ansible-collections/kubernetes.core/tags
+  - name: git+https://github.com/ansible-collections/kubernetes.core.git,6.0.0
+  # ##versions: https://github.com/ansible-collections/ansible.utils/releases
+  - name: git+https://github.com/ansible-collections/ansible.utils,v6.0.0
+  # ##versions: https://github.com/ansible-collections/community.general/releases
+  - name: git+https://github.com/ansible-collections/community.general,10.7.0
+  # ##versions: https://github.com/ansible-collections/ansible.posix/releases
+  - name: git+https://github.com/ansible-collections/ansible.posix,2.0.0
