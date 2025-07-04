@@ -5,12 +5,17 @@ USER root
 ARG TARGETARCH
 ARG TARGETOS=linux
 
-# install azure cli
+# install extra repos
 RUN set -e; \
   apt-get update; \
   apt-get install -y curl apt-transport-https lsb-release gnupg; \
   curl -sLk https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /etc/apt/trusted.gpg.d/microsoft.gpg; \
-  echo "deb [arch=${TARGETARCH}] https://packages.microsoft.com/repos/azure-cli/ $(lsb_release -cs) main" > /etc/apt/sources.list.d/azure-cli.list
+  echo "deb [arch=${TARGETARCH}] https://packages.microsoft.com/repos/azure-cli/ $(lsb_release -cs) main" > /etc/apt/sources.list.d/azure-cli.list; \
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc; \
+  chmod a+r /etc/apt/keyrings/docker.asc; \
+  echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 # COPY microsoft.asc /tmp/microsoft.asc
 
@@ -24,6 +29,11 @@ RUN set -e; \
     apt-get update && DEBIAN_FRONTEND="noninteractive" TZ="Europe/Berlin" apt-get install -y \
     ca-certificates \
     software-properties-common \
+    docker-ce \
+    docker-ce-cli \
+    containerd.io \
+    docker-buildx-plugin \
+    docker-compose-plugin \
     buildah \
     podman \
     azure-cli \
