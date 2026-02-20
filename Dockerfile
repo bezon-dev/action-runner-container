@@ -71,7 +71,7 @@ RUN set -e; \
   rm -rf /var/lib/apt/lists/*
 
 # ##versions: https://github.com/helm/helm/releases
-ARG HELM_VERSION=3.18.2
+ARG HELM_VERSION=3.20.0
 RUN set -e; \
   cd /tmp; \
   curl -Ssk -o helm.tar.gz https://get.helm.sh/helm-v${HELM_VERSION}-${TARGETOS}-${TARGETARCH}.tar.gz; \
@@ -81,7 +81,7 @@ RUN set -e; \
   rm -rf ${TARGETOS}-${TARGETARCH} helm.tar.gz
 
 # ##versions: https://github.com/kubernetes/kubernetes/releases
-ARG KUBECTL_VERSION=1.33.1
+ARG KUBECTL_VERSION=1.35.1
 RUN set -e; \
     cd /tmp; \
     curl -sLOk "https://dl.k8s.io/release/v${KUBECTL_VERSION}/bin/${TARGETOS}/${TARGETARCH}/kubectl"; \
@@ -89,7 +89,7 @@ RUN set -e; \
     chmod +x /usr/local/bin/kubectl
 
 # ##versions: https://github.com/hashicorp/terraform/releases
-ARG TERRAFORM_VERSION=1.11.0
+ARG TERRAFORM_VERSION=1.14.5
 RUN set -e; \
   cd /tmp; \
   curl -Ssk -o terraform.zip https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_${TARGETOS}_${TARGETARCH}.zip; \
@@ -99,13 +99,17 @@ RUN set -e; \
   rm terraform.zip
 
 # ##versions: https://github.com/bitnami-labs/sealed-secrets/releases
-ARG KUBESEAL_VERSION=0.30.0
+ARG KUBESEAL_VERSION=0.35.0
 RUN set -e; \
   cd /tmp; \
   curl -LSsOk https://github.com/bitnami-labs/sealed-secrets/releases/download/v${KUBESEAL_VERSION}/kubeseal-${KUBESEAL_VERSION}-${TARGETOS}-${TARGETARCH}.tar.gz; \
   tar -xzf kubeseal-${KUBESEAL_VERSION}-${TARGETOS}-${TARGETARCH}.tar.gz kubeseal; \
   install -m 755 kubeseal /usr/local/bin/kubeseal; \
   rm -rf kubeseal-${KUBESEAL_VERSION}-${TARGETOS}-${TARGETARCH}.tar.gz kubeseal
+
+# Azure CLI
+# https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-linux
+RUN curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
 COPY registries.conf /etc/containers/registries.conf
 
