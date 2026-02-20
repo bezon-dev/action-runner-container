@@ -109,7 +109,7 @@ RUN set -e; \
 
 # Azure CLI
 # https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-linux
-RUN curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 
 COPY registries.conf /etc/containers/registries.conf
 
