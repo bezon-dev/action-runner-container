@@ -88,6 +88,16 @@ RUN set -e; \
     mv kubectl /usr/local/bin/; \
     chmod +x /usr/local/bin/kubectl
 
+# ##versions: https://github.com/kubernetes-sigs/kustomize/releases
+ARG KUSTOMIZE_VERSION=5.8.1
+RUN set -e; \
+  cd /tmp; \
+  curl -fsSL -o kustomize.tar.gz https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv${KUSTOMIZE_VERSION}/kustomize_v${KUSTOMIZE_VERSION}_${TARGETOS}_${TARGETARCH}.tar.gz; \
+  tar xzf kustomize.tar.gz; \
+  mv kustomize /usr/local/bin/; \
+  chmod +x /usr/local/bin/kustomize; \
+  rm kustomize.tar.gz
+
 # ##versions: https://github.com/hashicorp/terraform/releases
 ARG TERRAFORM_VERSION=1.14.5
 RUN set -e; \

@@ -11,8 +11,8 @@ IMAGE_NAME=action-runner-container/action-runner-container
 docker buildx build \
   . \
   -t ${REGISTRY_NAME}/${IMAGE_NAME}:latest \
+  --push \
   --platform=linux/arm64,linux/amd64 "${@}"
 
-  # --push \
   # --no-cache --pull \
 
