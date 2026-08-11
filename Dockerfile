@@ -140,3 +140,4 @@ USER runner
 
 # ENV PATH=${PATH}:/home/runner/.local/bin:/home/runner/bin
 
+RUN helm plugin install https://github.com/databus23/helm-diff
